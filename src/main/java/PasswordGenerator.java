@@ -2,5 +2,25 @@ import java.security.SecureRandom;
 
 public class PasswordGenerator {
 
+    private static final String CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz";
+    private static final String CHAR_UPPER = CHAR_LOWER.toUpperCase();
+    private static final String NUMBER = "0123456789";
+    private static final String OTHER_CHAR = "!@#$%&*()_+-=[]?";
 
+    private static final String PASSWORD_ALLOW_BASE = CHAR_LOWER + CHAR_UPPER + NUMBER + OTHER_CHAR;
+    private static final SecureRandom RANDOM = new SecureRandom();
+
+    public static String generatePassword(int length) {
+        if (length < 1) {
+            return "The password length must be greater than 0";
+        }
+
+        StringBuilder password = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            int indexChar = RANDOM.nextInt(PASSWORD_ALLOW_BASE.length());
+            password.append(PASSWORD_ALLOW_BASE.charAt(indexChar));
+        }
+
+        return password.toString();
+    }
 }
